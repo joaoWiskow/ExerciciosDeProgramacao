@@ -1,10 +1,9 @@
-package EmJava;
+package emjava;
 import java.util.Scanner;
 public class IsPalindrom{
 public static void main(String[]args){
 Scanner in=new Scanner(System.in);
-System.out.println(
-    "Digite a palavra para o teste: ");
+System.out.println("Digite a palavra para o teste: ");
 String WordCommun=in.nextLine();
 String w=WordCommun.toLowerCase();
 if(isPalindrom(w)){
