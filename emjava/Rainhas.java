@@ -7,14 +7,53 @@ public class Rainhas{
       System.out.println("Digite o número de rainhas: ");
       int nRainhas=in.nextInt();
       int tabuleiro[][]=new int[8][8];
-    //   for(int i=0;i<8;i++){
-    //    for(int j=0;j<8;j++){
-    //     tabuleiro[i][j]=0;
-    //    }
-    //  }
-      preencheLinhas(tabuleiro, 4, 4);
+      for(int i=0;i<8;i++){
+       for(int j=0;j<8;j++){
+        tabuleiro[i][j]=0;
+       }
+     }
+      int [][]tab=montaTabuleiro(tabuleiro, nRainhas);
     }
-    public static void printa(int nRainhas,int[][] tabuleiro){
+    public static int[][] montaTabuleiro(int tabuleiro[][],int nRainhas , int i, int j){
+        if(nRainhas==0){
+          printa(tabuleiro);
+          return tabuleiro;
+        }
+
+        if(verifica(tabuleiro,i,j)){
+          tabuleiro[i][j]=1;
+          montaTabuleiro(tabuleiro,nRainhas-1, i+1, j);
+          montaTabuleiro(tabuleiro,nRainhas-1, i, j+1);
+          montaTabuleiro(tabuleiro,nRainhas-1, i+1, j+1);
+        }
+        return tabuleiro;
+    }
+    //funcao de backtracking
+    
+    public static boolean verifica(int[][] tabuleiro,int i,int j){
+      boolean permitido=true;
+      for(int k=0;k<=8;k++){
+      if(tabuleiro[i][k]==1){
+        permitido=false;
+      }
+      while(i-1>=0&&j-1>=0){
+        if(tabuleiro[i-1][j-1]==1){
+          permitido=false;
+        }
+        i--;
+        j--;
+      }
+      while(i+1<=8&&j+1<=8){
+        if(tabuleiro[i+1][j+1]==1){
+          permitido=false;
+        }
+        i++;
+        j++;
+      }
+     }
+     return permitido;
+    }
+    public static void printa(int[][] tabuleiro){
      
      for(int i=0;i<8;i++){
        for(int j=0;j<8;j++){
@@ -23,40 +62,5 @@ public class Rainhas{
       System.out.println("|");
      }
      
-    }
-    public static int[][] preencheLinhas(int[][] tabuleiro,int i,int j){
-     
-     tabuleiro[i][j]=1;
-      // for(int k=1;k<8;k++){//coluna
-      //       if(k!=j){
-      //       tabuleiro[i][k]=-1;
-      //       }else{
-      //         tabuleiro[i][k]=1;  
-      //       }
-      //   }
-        
-      //   for(int k=1;k<8;k++){//linha
-      //       if(k!=i){
-      //       tabuleiro[k][j]=-1;
-      //       }else{
-      //         tabuleiro[k][j]=1;  
-      //       }
-      //   }
-        for(int k=1;k<8;k++){
-             if(i-k>=1&&j-k>=1){
-              tabuleiro[i][j]=-1;
-             }
-             if(i-k>=1&&j+k<=8){
-              tabuleiro[i][j]=-1;
-             }
-             if(i+k<=8&&j-k>=1){
-              tabuleiro[i][j]=-1;
-             }
-             if(i+k<=8&&j+k<=8){
-              tabuleiro[i][j]=-1;
-             }
-        }
-        printa(1,tabuleiro);
-        return tabuleiro;
     }
 }
